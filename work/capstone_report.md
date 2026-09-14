@@ -7,7 +7,8 @@
 
 ## 0. Abstract
 
-This capstone asks how existing content with high search visibility but relatively low click-through rate (CTR) and good average search position can be identified and prioritized for content refresh. The analysis uses the FlyRank internship warehouse, aggregated to 309,234 client-content records using impressions, clicks, CTR, and average search position. A transparent rule-based baseline was compared with a Decision Tree model using impressions, CTR, and average position, with validation including a client-grouped split to avoid client overlap between training and testing data. The Decision Tree achieved 1.00 Accuracy, Precision, Recall, and F1 on the evaluated client-grouped test split while reproducing the rule-defined opportunity label. The resulting workflow is a ranked opportunity queue intended to support human review and content-refresh prioritization rather than automatic publishing, deletion, or guaranteed CTR improvement.
+This capstone asks how existing content with high search visibility but relatively low click-through rate (CTR) and good average search position can be identified and prioritized for content refresh. The analysis uses the FlyRank internship warehouse, aggregated to 309,234 client-content records using impressions, clicks, CTR, and average search position. A transparent rule-based baseline was compared with a Decision Tree model using impressions, CTR, and average position, with validation including a client-grouped split to avoid client overlap between training and testing data. The Decision Tree achieved 1.00 Accuracy, Precision, Recall, and F1 on the evaluated client-grouped test split while reproducing the rule-defined opportunity label. The resulting workflow produces a ranked opportunity queue intended to support human review and content-refresh prioritization rather than automatic publishing, deletion, or guaranteed CTR improvement.
+
 
 ## 1. Problem framing
 
@@ -100,6 +101,11 @@ The Week 7 workflow also generated the following reproducibility artifacts:
 - `work/figures/week7_top10_action_queue.png`
 The metrics artifact records the validated row count, opportunity count, opportunity rate, ranking method, and human-review/automation policy.
 The workflow should be interpreted as reproducible from the committed notebooks and documented settings. The reported metrics should be regenerated from the repository workflow when performing a fresh verification rather than treated as a guarantee of unchanged results after changes to source data or aggregation logic.
+
+The workflow is organized as a set of Jupyter notebooks in the repository, covering data access and preparation, baseline scoring, model development, validation, and the final action playbook.
+The Week 7 data-access workflow uses DuckDB and Hugging Face dataset access. Required packages include `duckdb` and `huggingface_hub`, which are installed in the notebook when needed. Hugging Face access requires a read token supplied securely through a Colab Secret, environment variable, or secure prompt; no access token is stored in the repository.
+The Decision Tree configuration uses `max_depth=4`, `class_weight="balanced"`, and `random_state=42`. Client-grouped validation uses a 20% test split with `random_state=42`, and client overlap between training and test sets was checked to be zero.
+The capstone notebook documents the data preparation, baseline rule, model configuration, validation results, claim framing, and generated metrics and figure artifacts used for the final analysis.
 
 ## 9. Acknowledgments & data credit
 
